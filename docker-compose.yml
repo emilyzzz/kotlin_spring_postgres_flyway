@@ -1,0 +1,22 @@
+version: '3'
+services:
+  pg:
+    image: postgres
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=app
+    volumes:
+      - ./pg_data_docker:/var/lib/postgresql/data
+
+  flyway:
+    image: boxfuse/flyway:5.2.4
+    command: -url=jdbc:postgresql://pg:5432/app -user=postgres -password=postgres -connectRetries=10 migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - pg
+
