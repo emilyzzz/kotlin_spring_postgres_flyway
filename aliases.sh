@@ -1,6 +1,7 @@
 
 
 alias dc="docker-compose"
+alias dlogs="docker-compose logs -f"
 alias dlogs_db="docker logs -f kotlinspring_pg_1"
 alias dlogs_fly="docker logs -f kotlinspring_flyway_1"
 

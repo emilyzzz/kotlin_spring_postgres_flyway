@@ -1,5 +1,6 @@
 ## Kotlin Spring Project
-Kotlin, Spring Framework, Postgres(docker), Flyway
+Stack: Kotlin, Spring Framework, Postgres(docker), Flyway
+Note, docker-compose.yml developed on Mac, may or may not work on Windows for volume mounting.
 
 ### Build
 Build will only pass when the app connects to a running postgres. Run `docker-compose up -d` to start postgres.
