@@ -4,7 +4,6 @@ import com.emily.springpostgres.exception.ResourceNotFoundException
 import com.emily.springpostgres.model.Answer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 import kotlin.collections.List
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import com.emily.springpostgres.repository.QuestionRepository
 import com.emily.springpostgres.repository.AnswerRepository
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 
 @RestController
@@ -26,6 +27,16 @@ class AnswerController {
 
     @Autowired
     private val questionRepository: QuestionRepository? = null
+
+    @GetMapping("/answers")
+    fun getAnswers(pageable: Pageable): Page<Answer> {
+        return answerRepository!!.findAll(pageable)
+    }
+
+    @GetMapping("/firstanswer")
+    fun getFirstAnswer(): Answer? {
+        return answerRepository!!.findAll().firstOrNull()
+    }
 
     @GetMapping("/questions/{questionId}/answers")
     fun getAnswersByQuestionId(@PathVariable questionId: Long?): List<Answer> {

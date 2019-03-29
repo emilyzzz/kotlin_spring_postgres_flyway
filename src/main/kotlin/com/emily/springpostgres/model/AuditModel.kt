@@ -16,12 +16,27 @@ abstract class AuditModel : Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
-    private val createdAt: Date? = null
+    private var createdAt: Date? = null
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", nullable = false)
     @LastModifiedDate
-    private val updatedAt: Date? = null
+    private var updatedAt: Date? = null
 
     // Getters and Setters (Omitted for brevity)
+    fun getCreatedAt(): Date {
+        return createdAt!!
+    }
+
+    fun setCreatedAt(createdAt: Date) {
+        this.createdAt = createdAt
+    }
+
+    fun getUpdatedAt(): Date {
+        return updatedAt!!
+    }
+
+    fun setUpdatedAt(updatedAt: Date) {
+        this.updatedAt = updatedAt
+    }
 }
