@@ -50,7 +50,7 @@ class AnswerController {
     ): Any {
         return questionRepository!!.findById(questionId)
             .map<Any> { question ->
-                answer.setQuestion(question)
+                answer.question = question
                 answerRepository!!.save(answer)
             }.orElseThrow { ResourceNotFoundException("Question not found with id " + questionId) }
     }
@@ -67,7 +67,7 @@ class AnswerController {
 
         return answerRepository!!.findById(answerId)
             .map { answer ->
-                answer.setText(answerRequest.getText())
+                answer.text = answerRequest.text
                 answerRepository.save(answer)
             }.orElseThrow { ResourceNotFoundException("Answer not found with id " + answerId) }
     }

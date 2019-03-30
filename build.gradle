@@ -37,6 +37,8 @@ dependencies {
 	testCompile 'org.springframework:spring-test:5.1.5.RELEASE'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile "org.springframework.boot:spring-boot-devtools"
+	compile 'org.projectlombok:lombok:+'
+
 }
 
 compileKotlin {

@@ -31,7 +31,7 @@ fly validate
 
 *Create Question*
 ```
-curl -X POST "localhost:8080/questions" -H "content-type: application/json" -d '{"title": "title1", "description": "description1"}' | python -mjson.tool
+curl -s -X POST "localhost:8080/questions" -H "content-type: application/json" -d '{"title": "title1", "description": "description1"}' | python -mjson.tool
 
 # response
 {'createdAt': '2019-03-29T02:40:00.572+0000',
@@ -84,14 +84,14 @@ $ curl -X GET "localhost:8080/questions" | python -mjson.tool
 }
 ```
 
-More:
+*Query Params*
 ```
 curl -X GET "localhost:8080/questions?page=0&size=2&sort=createdAt,desc" | python -mjson.tool
 ```
 
 *Create Answer*
 ```
-curl -X POST "localhost:8080/questions/1002/answers" -H "content-type: application/json" -d '{"text": "answer to question 1"}' | python -mjson.tool
+curl -X POST "localhost:8080/questions/1000/answers" -H "content-type: application/json" -d '{"text": "answer to question 1"}' | python -mjson.tool
 
 # response
 {
@@ -104,7 +104,7 @@ curl -X POST "localhost:8080/questions/1002/answers" -H "content-type: applicati
 
 *Get All Answers For a Question*
 ```
-curl -X GET "localhost:8080/questions/1002/answers"  | python -mjson.tool
+curl -X GET "localhost:8080/questions/1000/answers"  | python -mjson.tool
 
 # response
 [
@@ -115,4 +115,18 @@ curl -X GET "localhost:8080/questions/1002/answers"  | python -mjson.tool
         "text": "answer to question 1"
     }
 ]
+```
+
+*Update A Question*
+```
+$ curl -s -X PUT "localhost:8080/questions/1000" -H "content-type: application/json" -d '{"title": "updated title"}' | python -mjson.tool
+
+# response, note we didn't include 'description' in payload so it's set to default ""
+{
+    "createdAt": "2019-03-30T03:45:51.984+0000",
+    "updatedAt": "2019-03-30T03:55:26.762+0000",
+    "id": 1000,
+    "title": "updated title",
+    "description": ""
+}
 ```

@@ -41,8 +41,8 @@ class QuestionController {
     ): Question {
         return questionRepository!!.findById(questionId)
             .map { question ->
-                question.setTitle(questionRequest.getTitle())
-                question.setDescription(questionRequest.getDescription())
+                question.title = questionRequest.title
+                question.description = questionRequest.description
                 questionRepository.save(question)
             }.orElseThrow { ResourceNotFoundException("Question not found with id " + questionId) }
     }
