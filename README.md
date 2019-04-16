@@ -29,21 +29,21 @@ fly validate
 
 ### Rest Endpoints
 
-*Create Question*
+*Create Teacher*
 ```
-curl -s -X POST "localhost:8080/questions" -H "content-type: application/json" -d '{"title": "title1", "description": "description1"}' | python -mjson.tool
+curl -s -X POST "localhost:8080/teachers" -H "content-type: application/json" -d '{"name": "name1", "description": "description1"}' | python -mjson.tool
 
 # response
 {'createdAt': '2019-03-29T02:40:00.572+0000',
  'description': 'description1',
  'id': 1002,
- 'title': 'title1',
+ 'name': 'name1',
  'updatedAt': '2019-03-29T02:40:00.572+0000'}
 ```
 
-*Get All Questions*
+*Get All Teachers*
 ```
-$ curl -X GET "localhost:8080/questions" | python -mjson.tool
+curl -s -X GET "localhost:8080/teachers" | python -mjson.tool
 
 # response
 {
@@ -52,7 +52,7 @@ $ curl -X GET "localhost:8080/questions" | python -mjson.tool
             "createdAt": "2019-03-29T02:40:00.572+0000",
             "updatedAt": "2019-03-29T02:40:00.572+0000",
             "id": 1002,
-            "title": "title1",
+            "name": "name1",
             "description": "description1"
         }
     ],
@@ -86,25 +86,26 @@ $ curl -X GET "localhost:8080/questions" | python -mjson.tool
 
 *Query Params*
 ```
-curl -X GET "localhost:8080/questions?page=0&size=2&sort=createdAt,desc" | python -mjson.tool
+curl -X GET "localhost:8080/teachers?page=0&size=2&sort=createdAt,desc" | python -mjson.tool
 ```
 
-*Create Answer*
+*Create Student*
 ```
-curl -X POST "localhost:8080/questions/1000/answers" -H "content-type: application/json" -d '{"text": "answer to question 1"}' | python -mjson.tool
+curl -X POST "localhost:8080/teachers/1000/students" -H "content-type: application/json" -d '{"name": "student1", "description": "student1 to teacher 1"}' | python -mjson.tool
 
 # response
 {
     "createdAt": "2019-03-29T02:46:09.017+0000",
     "updatedAt": "2019-03-29T02:46:09.017+0000",
     "id": 1000,
-    "text": "answer to question 1"
+    "name": "student1",
+    "description": "student1 to teacher 1"
 }
 ```
 
-*Get All Answers For a Question*
+*Get All Students For a Teacher*
 ```
-curl -X GET "localhost:8080/questions/1000/answers"  | python -mjson.tool
+curl -X GET "localhost:8080/teachers/1000/students"  | python -mjson.tool
 
 # response
 [
@@ -112,21 +113,21 @@ curl -X GET "localhost:8080/questions/1000/answers"  | python -mjson.tool
         "createdAt": "2019-03-29T02:46:09.017+0000",
         "updatedAt": "2019-03-29T02:46:09.017+0000",
         "id": 1000,
-        "text": "answer to question 1"
+        "text": "student1 to question 1"
     }
 ]
 ```
 
-*Update A Question*
+*Update A Teacher*
 ```
-$ curl -s -X PUT "localhost:8080/questions/1000" -H "content-type: application/json" -d '{"title": "updated title"}' | python -mjson.tool
+curl -s -X PUT "localhost:8080/teachers/1000" -H "content-type: application/json" -d '{"name": "updated teacher1 name"}' | python -mjson.tool
 
 # response, note we didn't include 'description' in payload so it's set to default ""
 {
     "createdAt": "2019-03-30T03:45:51.984+0000",
     "updatedAt": "2019-03-30T03:55:26.762+0000",
     "id": 1000,
-    "title": "updated title",
+    "name": "updated teacher1 name",
     "description": ""
 }
 ```
