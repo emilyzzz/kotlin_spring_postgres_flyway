@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository
 //import org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
 
 @Repository
-interface TeacherRepository : JpaRepository<Teacher, Long>
+interface TeacherRepository : JpaRepository<Teacher, Long> {
+    fun findByName(name: String?): Teacher
+}
