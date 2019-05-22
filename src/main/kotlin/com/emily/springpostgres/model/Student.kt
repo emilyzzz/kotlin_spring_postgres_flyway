@@ -1,6 +1,6 @@
 package com.emily.springpostgres.model
 
-import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.*
 import javax.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
@@ -8,9 +8,9 @@ import org.hibernate.annotations.OnDeleteAction
 
 @Entity
 @Table(name = "students")
+@JsonIgnoreProperties(value = ["teacherId"], allowGetters = true)
 class Student : AuditModel() {
-    @Id @GeneratedValue(generator = "student_generator")
-    @SequenceGenerator(name = "student_generator", sequenceName = "student_sequence", initialValue = 1000)
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     var id: Long? = null
 
     @Column
@@ -22,6 +22,7 @@ class Student : AuditModel() {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "teacher_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    var teacher: Teacher? = null     // a student has 1 teacher, a teacher has many students, ForeignKey relation
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property="id")
+    @JsonIdentityReference(alwaysAsId = true)
+    var teacherId: Teacher? = null     // a student has 1 teacherId, a teacherId has many students, ForeignKey relation
 }

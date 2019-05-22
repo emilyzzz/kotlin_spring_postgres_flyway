@@ -34,8 +34,8 @@ class StudentController {
     }
 
     @GetMapping("/teachers/{tId}/students")
-    fun getStudentsByTeacherId(@PathVariable tId: Long?): List<Student> {
-        return studentRepository!!.findByTeacherId(tId)
+    fun getStudentsByTeacherId(@PathVariable teacherId: Long?): List<Student> {
+        return studentRepository!!.findByTeacherId(teacherId)
     }
 
     @PostMapping("/teachers/{teacherId}/students")
@@ -45,7 +45,7 @@ class StudentController {
     ): Any {
         return teacherRepository!!.findById(teacherId)
             .map<Any> { teacher ->
-                student.teacher = teacher
+                student.teacherId = teacher
                 studentRepository!!.save(student)
             }.orElseThrow { ResourceNotFoundException("Teacher not found with id: " + teacherId) }
     }
@@ -62,7 +62,7 @@ class StudentController {
 
         return studentRepository!!.findById(studentId)
             .map { student ->
-                student.teacher = studentRequestBody.teacher
+                student.teacherId = studentRequestBody.teacherId
                 studentRepository.save(student)
             }.orElseThrow { ResourceNotFoundException("Student not found with id: " + studentId) }
     }

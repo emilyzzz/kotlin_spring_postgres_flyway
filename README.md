@@ -1,7 +1,7 @@
 ## Kotlin Spring Rest App
 _(work in progress)_
 
-Stack: Kotlin, Spring Framework, Postgres(docker), Flyway
+Stack: Kotlin, Spring Framework, Postgres(docker), Flyway  
 Note, docker-compose.yml developed on Mac, may or may not work on Windows for volume mounting.
 
 ### Build & Run
@@ -86,20 +86,22 @@ curl -s -X GET "localhost:8080/teachers" | python -mjson.tool
 
 *Query Params*
 ```
+curl -X GET "localhost:8080/teachers?id=1000"  | python -mjson.tool
 curl -X GET "localhost:8080/teachers?page=0&size=2&sort=createdAt,desc" | python -mjson.tool
 ```
 
 *Create Student*
 ```
-curl -X POST "localhost:8080/teachers/1000/students" -H "content-type: application/json" -d '{"name": "student1", "description": "student1 to teacher 1"}' | python -mjson.tool
+curl -X POST "localhost:8080/teachers/1000/students" -H "content-type: application/json" -d '{"name": "student2", "description": "student2 to teacher 1"}' | python -mjson.tool
 
 # response
 {
-    "createdAt": "2019-03-29T02:46:09.017+0000",
-    "updatedAt": "2019-03-29T02:46:09.017+0000",
-    "id": 1000,
-    "name": "student1",
-    "description": "student1 to teacher 1"
+    "createdAt": "2019-05-21T03:32:32.470+0000",
+    "description": "student2 to teacher 1",
+    "id": 2,
+    "name": "student2",
+    "teacherId": 1000,
+    "updatedAt": "2019-05-21T03:32:32.470+0000"
 }
 ```
 
@@ -119,15 +121,14 @@ curl -X GET "localhost:8080/teachers/1000/students"  | python -mjson.tool
 ```
 
 *Update A Teacher*
+Allows partial update
 ```
 curl -s -X PUT "localhost:8080/teachers/1000" -H "content-type: application/json" -d '{"name": "updated teacher1 name"}' | python -mjson.tool
-
-# response, note we didn't include 'description' in payload so it's set to default ""
 {
     "createdAt": "2019-03-30T03:45:51.984+0000",
     "updatedAt": "2019-03-30T03:55:26.762+0000",
     "id": 1000,
     "name": "updated teacher1 name",
-    "description": ""
+    "description": "description1"
 }
 ```
